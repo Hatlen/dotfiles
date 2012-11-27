@@ -1,0 +1,28 @@
+set background=dark
+"color getafe
+color solarized 
+"is only used in gvim not when running in the terminal
+if has('gui_running')
+	set guifont=Anonymous\ Pro
+endif
+
+set noexpandtab
+set softtabstop=4
+set tabstop=4
+set shiftwidth=4
+
+" resize current buffer by +/- 5 
+" to resize on command (D) + arrow seems better when on mac but
+" on my ubuntu when I've remmaped the super key to control I went for control
+" until i think of something better. So this code should be inside a
+" conditional (if !darwin)
+nnoremap <C-left> :vertical resize -5<cr>
+nnoremap <C-down> :resize +5<cr>
+nnoremap <C-up> :resize -5<cr>
+nnoremap <C-right> :vertical resize +5<cr>
+
+"and if darwin
+"nnoremap <D-left> :vertical resize -5<cr>
+"nnoremap <D-down> :resize +5<cr>
+"nnoremap <D-up> :resize -5<cr>
+"nnoremap <D-right> :vertical resize +5<cr>
