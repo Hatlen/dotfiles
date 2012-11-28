@@ -1,6 +1,6 @@
 set background=dark
 "color getafe
-color solarized 
+color solarized
 "is only used in gvim not when running in the terminal
 if has('gui_running')
 	set guifont=Anonymous\ Pro
@@ -26,3 +26,19 @@ nnoremap <C-right> :vertical resize +5<cr>
 "nnoremap <D-down> :resize +5<cr>
 "nnoremap <D-up> :resize -5<cr>
 "nnoremap <D-right> :vertical resize +5<cr>
+
+"Strip all trailing whitespace on before writing to the buffer
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+
+autocmd FileType html,javascript,json,css,ruby,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+
+"Trying to figure out how to reload the file when it's changed
+" set autoread
+:au WinEnter * checktime
+:au FileChangedShell * echo "Warning: File changed on disk"
+" some one was here
