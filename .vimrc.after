@@ -27,7 +27,7 @@ nnoremap <C-right> :vertical resize +5<cr>
 "nnoremap <D-up> :resize -5<cr>
 "nnoremap <D-right> :vertical resize +5<cr>
 
-"Strip all trailing whitespace on before writing to the buffer
+"Strip all trailing whitespace before writing to the buffer
 fun! <SID>StripTrailingWhitespaces()
     let l = line(".")
     let c = col(".")
@@ -38,7 +38,17 @@ endfun
 autocmd FileType html,javascript,json,css,ruby,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
 "Trying to figure out how to reload the file when it's changed
-" set autoread
-:au WinEnter * checktime
-:au FileChangedShell * echo "Warning: File changed on disk"
-" some one was here
+set autoread
+
+" Make terminal Vim trigger autoread more often. (thank you joakimk)
+au WinEnter,BufWinEnter,CursorHold * checktime
+" TODO it does not reload directly when swithching terminal tabs or tmux screens/panes
+
+" Automatically save changes before switching buffer with some
+" commands, like :cnfile.
+set autowrite
+
+set showcmd                " Show partially typed command sequences.
+set scrolloff=3            " Minimal number of lines to always show above/below the caret.
+
+set wrap  " Soft wrap.Soft
