@@ -20,19 +20,23 @@ set shiftwidth=4
 " to resize on command (D) + arrow seems better when on mac but
 " on my ubuntu when I've remmaped the super key to control I went for control
 " until i think of something better.
-if [ `uname` = "Darwin" ]; then
-  echo "Darwin it is"
+if system('uname') =~ "Darwin"
   nnoremap <D-left> :vertical resize -5<cr>
   nnoremap <D-down> :resize +5<cr>
   nnoremap <D-up> :resize -5<cr>
   nnoremap <D-right> :vertical resize +5<cr>
+
+  nnoremap <C-W>> :vertical resize +5<CR>
+  nnoremap <C-W>< :vertical resize -5<CR>
+  nnoremap <C-W>+ :resize +5<CR>
+  nnoremap <C-W>- :resize -5<CR>
 else
   "Does not work at work at the moment
   nnoremap <C-left> :vertical resize -5<cr>
   nnoremap <C-down> :resize +5<cr>
   nnoremap <C-up> :resize -5<cr>
   nnoremap <C-right> :vertical resize +5<cr>
-fi
+endif
 
 "Strip all trailing whitespace before writing to the buffer
 fun! <SID>StripTrailingWhitespaces()
