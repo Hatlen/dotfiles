@@ -1,0 +1,3 @@
+[submodule ".janus/zencoding-vim"]
+	path = .janus/zencoding-vim
+	url = git://github.com/mattn/zencoding-vim.git
