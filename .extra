@@ -10,7 +10,7 @@ export TERM=xterm-256color        # for common 256 color terminals (e.g. gnome-t
 export TERM=screen-256color       # for a tmux -2 session (also for screen)
 # put the .dir_colors in the same folder as the .extra file
 if [ `uname` != 'Darwin' ]; then
-	eval `dircolors ./.dir_colors`
+	eval `dircolors "$PWD/.dir_colors"`
 fi
 
 # add some pahts to the path
