@@ -1,0 +1,8 @@
+--ignore-dir=rails
+--type-set=ruby=.rb,.rhtml,.rjs,.rxml,.erb,.rake,.spec,.haml
+--ignore-dir=log
+--ignore-dir=tmp
+--ignore-dir=vendor
+--ignore-dir=public/generated
+--sort-files
+# -a

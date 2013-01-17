@@ -1,41 +1,19 @@
-"Sets relativenumbers (set nonumber is a hack to fix an issue in
-"macvim(according to a st question))
-"set nonumber
 "set relativenumber
-
 set background=dark
-"color getafe
 color solarized
-"is only used in gvim not when running in the terminal
-if has('gui_running')
-	set guifont=Anonymous\ Pro
-endif
+"Janus's default settings is better/more in line with de facto standards.
+"set noexpandtab
+"set softtabstop=4
+"set tabstop=4
+"set shiftwidth=4
 
-set noexpandtab
-set softtabstop=4
-set tabstop=4
-set shiftwidth=4
-
-" resize current buffer by +/- 5 
-" to resize on command (D) + arrow seems better when on mac but
-" on my ubuntu when I've remmaped the super key to control I went for control
-" until i think of something better.
+" resize current buffer by +/- 5
 if system('uname') =~ "Darwin"
-  nnoremap <D-left> :vertical resize -5<cr>
-  nnoremap <D-down> :resize +5<cr>
-  nnoremap <D-up> :resize -5<cr>
-  nnoremap <D-right> :vertical resize +5<cr>
-
-  nnoremap <C-W>> :vertical resize +5<CR>
-  nnoremap <C-W>< :vertical resize -5<CR>
-  nnoremap <C-W>+ :resize +5<CR>
-  nnoremap <C-W>- :resize -5<CR>
-else
-  "Does not work at work at the moment
-  nnoremap <C-left> :vertical resize -5<cr>
-  nnoremap <C-down> :resize +5<cr>
-  nnoremap <C-up> :resize -5<cr>
-  nnoremap <C-right> :vertical resize +5<cr>
+  "Command bindings does not work in terminal, just in macvim/gvim
+  nnoremap <C-w><left> :vertical resize -5<cr>
+  nnoremap <C-w><up> :resize +5<cr>
+  nnoremap <C-w><down> :resize -5<cr>
+  nnoremap <C-w><right> :vertical resize +5<cr>
 endif
 
 "Strip all trailing whitespace before writing to the buffer
@@ -48,7 +26,7 @@ endfun
 
 autocmd FileType html,javascript,json,css,ruby,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
-"Trying to figure out how to reload the file when it's changed
+" Reloads the file when it's changed
 set autoread
 
 " Make terminal Vim trigger autoread more often. (thank you joakimk)
@@ -61,5 +39,23 @@ set autowrite
 
 set showcmd                " Show partially typed command sequences.
 set scrolloff=3            " Minimal number of lines to always show above/below the caret.
-
 set wrap  " Soft wrap.Soft
+
+" Vimux bindings
+" Prompt for a command to run
+map <Leader>rp :PromptVimTmuxCommand<CR>
+" Run last command executed by RunVimTmuxCommand
+map <Leader>rl :RunLastVimTmuxCommand<CR>
+" Inspect runner pane
+map ri :InspectVimTmuxRunner
+" Close all other tmux panes in current window
+map rx :CloseVimTmuxPanes
+" Interrupt any command running in the runner pane
+map rs :InterruptVimTmuxRunner
+
+"" More mappings
+"map double j to escape in insert mode, to save finger travel distance.
+imap jj <Esc>
+map <C-s> :echo 'hehehe'<CR>
+map <C-x> :echo 'heheh'<CR>
+
