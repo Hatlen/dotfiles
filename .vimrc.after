@@ -56,6 +56,11 @@ map rs :InterruptVimTmuxRunner
 "" More mappings
 "map double j to escape in insert mode, to save finger travel distance.
 imap jj <Esc>
-map <C-s> :echo 'hehehe'<CR>
-map <C-x> :echo 'heheh'<CR>
 
+"map ctrl-s to save
+noremap <silent> <C-S>          :update<CR>
+vnoremap <silent> <C-S>         <C-C>:update<CR>
+"Ctrl-O exits insert mode for just one command i think that i prefer to exit
+"insert mode on ctrl-s but i keep the ctrl-o binding here if i change my mind
+inoremap <silent> <C-S>         <esc>:update<CR>
+"inoremap <silent> <C-O>         <esc>:update<CR>

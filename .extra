@@ -20,6 +20,14 @@ export HISTIGNORE="ls:pwd:exit:date"
 bind -r '\C-s'
 stty -ixon
 
+# Deploy: precompile the assets add all changes and push and deploy with cap
+alias deploy="git add . && git commit -m 'deploying' && git push && cap deploy"
+alias deployc="bundle exec rake assets:precompile && git add . && git commit -m\
+ 'deploying' && git push && cap deploy"
+
+# Rails, and bundler stuff
+alias be="bundle exec"
+
 # add some pahts to the path
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
