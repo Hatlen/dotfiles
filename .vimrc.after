@@ -71,7 +71,7 @@ inoremap <silent> <C-S>         <esc>:update<CR>
 nmap <Leader>bi :source ~/.vimrc.before<cr>:BundleInstall<cr>
 "Do git- add, commit and push in one command, if you just want a fast way
 "to save your changes in your repo
-map <Leader>gw :!git add . && git commit -m "FAST COMMIT" && git push<cr>
+map <Leader>gw :!git add . && git commit -m "FAST COMMIT" && git push<cr><cr>
 
 " Set up some useful Rails.vim bindings for working with Backbone.js
 autocmd User Rails Rnavcommand jtemplate    app/assets/templates               -glob=**/*  -suffix=.jst.ejs
