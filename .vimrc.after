@@ -65,8 +65,18 @@ vnoremap <silent> <C-S>         <C-C>:update<CR>
 inoremap <silent> <C-S>         <esc>:update<CR>
 "inoremap <silent> <C-O>         <esc>:update<CR>
 
+"rails.vim mappings
+map <Leader>rc :Rcontroller<CR>
+map <Leader>rv :Rview<CR>
+map <Leader>rm :Rmodel<CR>
+map <Leader>rr :Rrefresh<CR>
+map <Leader>ri :Rinitializer<CR> "config/routes.rb when no args is given
+
 "Some nice commands from github.com/r00k/dotfiles
 "''''''''''''''''''''''''''''''''''''''''''''''''
+" Don't wait so long for the next keypress (particularly in ambigious Leader
+" situations.
+set timeoutlen=650 "default 1000
 "Reload .vimrc and do bundle install (changed to work with my janus config)
 nmap <Leader>bi :source ~/.vimrc.before<cr>:BundleInstall<cr>
 "Do git- add, commit and push in one command, if you just want a fast way
