@@ -47,11 +47,11 @@ map <Leader>rp :PromptVimTmuxCommand<CR>
 " Run last command executed by RunVimTmuxCommand
 map <Leader>rl :RunLastVimTmuxCommand<CR>
 " Inspect runner pane
-map ri :InspectVimTmuxRunner
+map <Leader>ri :InspectVimTmuxRunner
 " Close all other tmux panes in current window
-map rx :CloseVimTmuxPanes
+map <Leader>rx :CloseVimTmuxPanes
 " Interrupt any command running in the runner pane
-map rs :InterruptVimTmuxRunner
+map <Leader>rs :InterruptVimTmuxRunner
 
 "" More mappings
 "map double j to escape in insert mode, to save finger travel distance.
@@ -64,3 +64,19 @@ vnoremap <silent> <C-S>         <C-C>:update<CR>
 "insert mode on ctrl-s but i keep the ctrl-o binding here if i change my mind
 inoremap <silent> <C-S>         <esc>:update<CR>
 "inoremap <silent> <C-O>         <esc>:update<CR>
+
+"Some nice commands from github.com/r00k/dotfiles
+"''''''''''''''''''''''''''''''''''''''''''''''''
+"Reload .vimrc and do bundle install (changed to work with my janus config)
+nmap <Leader>bi :source ~/.vimrc.before<cr>:BundleInstall<cr>
+"Do git- add, commit and push in one command, if you just want a fast way
+"to save your changes in your repo
+map <Leader>gw :!git add . && git commit -m "FAST COMMIT" && git push<cr>
+
+" Set up some useful Rails.vim bindings for working with Backbone.js
+autocmd User Rails Rnavcommand jtemplate    app/assets/templates               -glob=**/*  -suffix=.jst.ejs
+autocmd User Rails Rnavcommand jmodel      app/assets/javascripts/models      -glob=**/*  -suffix=.coffee
+autocmd User Rails Rnavcommand jview       app/assets/javascripts/views       -glob=**/*  -suffix=.coffee
+autocmd User Rails Rnavcommand jcollection app/assets/javascripts/collections -glob=**/*  -suffix=.coffee
+autocmd User Rails Rnavcommand jrouter     app/assets/javascripts/routers     -glob=**/*  -suffix=.coffee
+autocmd User Rails Rnavcommand jspec       spec/javascripts                   -glob=**/*  -suffix=.coffee
