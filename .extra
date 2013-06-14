@@ -28,9 +28,34 @@ alias deployc="bundle exec rake assets:precompile && git add . && git commit -m\
 # Rails, and bundler stuff
 alias be="bundle exec"
 
+# Python and django stuff
+alias pm="python manage.py"
+export WORKON_HOME="$HOME/virtualenvs"
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+source $HOME/dotfiles/virtualenvwrapper.sh
+
+# Debugging things
+# Setup a chrome, for android, remote debugging service (the adb application 
+# is in the android sdk plattform tools added to the path underneath)
+# ps remember to have the android device connected and usb debugging enabled on it,
+# and do adb kill-server if it does not work on first try.
+alias remote_debug="adb forward tcp:9222 localabstract:chrome_devtools_remote"
+# Open the iOS simulator
+alias ios="open /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone\ Simulator.app"
+
+# Tmuxinator
+[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
+[[ -s $HOME/.tmuxinator_completion/scripts/tmuxinator_completion ]] && source $HOME/.tmuxinator_completion/scripts/tmuxinator_completion
+
 # add some pahts to the path
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/share/python:$PATH
 export PATH=/usr/local/share/npm/bin:$PATH
 export PATH=$PATH:$HOME/Code/aws
+# Android sdk (TODO: move it somewhere else)
+export PATH=$PATH:$HOME/Downloads/android-sdk/platform-tools
+
+# Cuda paths
+export PATH=/Developer/NVIDIA/CUDA-5.0/bin:$PATH
+# export DYLD_LIBRARY_PATH=/Developer/NVIDIA/CUDA-5.0/lib:$DYLD_LIBRARY_PATH

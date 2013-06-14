@@ -12,4 +12,6 @@ Bundle 'gmarik/vundle'
 Bundle 'benmills/vimux'
 Bundle 'mattn/zencoding-vim'
 Bundle 'vim-scripts/DirDo.vim'
-
+Bundle 'ecomba/vim-ruby-refactoring'
+Bundle 'vim-scripts/django.vim'
+Bundle 'godlygeek/tabular'
