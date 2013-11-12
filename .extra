@@ -1,6 +1,3 @@
-function ts() {
-	touch "$@" &&  subl -a "$@"
-}
 alias vi='vim'
 alias tmux="TERM=screen-256color-bce tmux"
 export EDITOR="VIM"
@@ -9,9 +6,9 @@ export EDITOR="VIM"
 export TERM=xterm-256color        # for common 256 color terminals (e.g. gnome-terminal)
 export TERM=screen-256color       # for a tmux -2 session (also for screen)
 # put the .dir_colors in the same folder as the .extra file
-if [ `uname` != 'Darwin' ]; then
-	eval `dircolors "$PWD/.dir_colors"`
-fi
+#if [ `uname` != 'Darwin' ]; then
+#	eval `dircolors "$PWD/.dir_colors"`
+#fi
 
 # Override Paul Irish's HISTIGNORE rule
 export HISTIGNORE="ls:pwd:exit:date"
@@ -29,10 +26,20 @@ alias deployc="bundle exec rake assets:precompile && git add . && git commit -m\
 alias be="bundle exec"
 
 # Python and django stuff
-alias pm="python manage.py"
+alias pms="python manage.py shell_plus"
+alias pmr="python manage.py runserver_plus 0:8000"
 export WORKON_HOME="$HOME/virtualenvs"
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
 source $HOME/dotfiles/virtualenvwrapper.sh
+
+# Other convenient aliases
+# Current project working on
+alias cw="cd $HOME/Code/aevy/"
+alias cv="cw" #maybe faster to write
+# if you have a subdirectory in the directory that you are working on that you often cd to
+alias cc="cd $HOME/Code/"
+alias ee="vim $HOME/.extra"
+alias er="source $HOME/.extra"
 
 # Debugging things
 # Setup a chrome, for android, remote debugging service (the adb application 
@@ -43,10 +50,6 @@ alias remote_debug="adb forward tcp:9222 localabstract:chrome_devtools_remote"
 # Open the iOS simulator
 alias ios="open /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone\ Simulator.app"
 
-# Tmuxinator
-[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
-[[ -s $HOME/.tmuxinator_completion/scripts/tmuxinator_completion ]] && source $HOME/.tmuxinator_completion/scripts/tmuxinator_completion
-
 # add some pahts to the path
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
@@ -55,7 +58,16 @@ export PATH=/usr/local/share/npm/bin:$PATH
 export PATH=$PATH:$HOME/Code/aws
 # Android sdk (TODO: move it somewhere else)
 export PATH=$PATH:$HOME/Downloads/android-sdk/platform-tools
+export PATH=/usr/local/mysql/bin:$PATH
+# Selenium compatible phantomjs and drivers
+export PATH=/usr/local/share/npm/lib/node_modules/webdrvr/node_modules/phantomjs/lib/phantom/bin/phantomjs:$PATH
+export PATH=/usr/local/share/npm/bin/webdriver:$PATH
+export PATH=/usr/local/share/npm/bin/webdriver:$PATH
+
+# making mysql
+# export DYLD_LIBRARY_PATH=/usr/local/mysql/lib/:$DYLD_LIBRARY_PATH
 
 # Cuda paths
 export PATH=/Developer/NVIDIA/CUDA-5.0/bin:$PATH
+# making cuda
 # export DYLD_LIBRARY_PATH=/Developer/NVIDIA/CUDA-5.0/lib:$DYLD_LIBRARY_PATH

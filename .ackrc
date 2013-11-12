@@ -1,5 +1,6 @@
 --ignore-dir=rails
 --type-set=ruby=.rb,.rhtml,.rjs,.rxml,.erb,.rake,.spec,.haml
+--type-add=css=.less
 --ignore-dir=log
 --ignore-dir=tmp
 --ignore-dir=vendor

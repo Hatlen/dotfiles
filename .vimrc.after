@@ -1,5 +1,6 @@
+filetype plugin indent on
 "set relativenumber
-"set background=dark
+set background=dark
 color solarized
 
 " paste from clipboard 
@@ -110,3 +111,4 @@ set splitright
 
 " tab settings (the defaults is almost perfect)
 autocmd Filetype javascript setlocal ts=4 sw=4 sts=4 expandtab
+autocmd Filetype html setlocal ts=4 sw=4 sts=4 expandtab
