@@ -9,6 +9,10 @@ export TERM=screen-256color       # for a tmux -2 session (also for screen)
 #if [ `uname` != 'Darwin' ]; then
 #	eval `dircolors "$PWD/.dir_colors"`
 #fi
+# Autocomplete on open sessions
+alias tma='tmux attach -d -t'
+# Create a session named after the git directory
+alias git-tmux='tmux new -s $(basename $(pwd))'
 
 # Override Paul Irish's HISTIGNORE rule
 export HISTIGNORE="ls:pwd:exit:date"
@@ -24,6 +28,17 @@ alias deployc="bundle exec rake assets:precompile && git add . && git commit -m\
 
 # Rails, and bundler stuff
 alias be="bundle exec"
+alias migrate="zeus rake db:migrate db:rollback && zeus rake db:migrate db:test:prepare"
+alias m="migrate"
+
+# Run specs using zeus if zeus is running
+rspec() {
+  if [ -S .zeus.sock ]; then
+    zeus rspec "$@"
+  else
+    command rspec "$@"
+  fi
+}
 
 # Python and django stuff
 alias pms="python manage.py shell_plus"
@@ -34,9 +49,8 @@ source $HOME/dotfiles/virtualenvwrapper.sh
 
 # Other convenient aliases
 # Current project working on
-alias cw="cd $HOME/Code/aevy/"
-alias cv="cw" #maybe faster to write
-# if you have a subdirectory in the directory that you are working on that you often cd to
+alias cw="cd $HOME/Code/aevy.com/"
+alias cv="cw" #easier to write
 alias cc="cd $HOME/Code/"
 alias ee="vim $HOME/.extra"
 alias er="source $HOME/.extra"

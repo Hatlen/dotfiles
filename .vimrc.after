@@ -41,6 +41,8 @@ set showcmd
 set scrolloff=3
 " Soft wrap.Soft
 set wrap
+" Let - be a valid keyword character
+set iskeyword+=-
 
 " Vimux bindings
 " Prompt for a command to run
@@ -77,6 +79,14 @@ map <Leader>rrr :Rrefresh<CR>
 map <Leader>ri :Rinitializer<CR> 
 "config/routes.rb when no args is given
 
+" Run tests: current file, current test, current context
+map <Leader>t :RunAllRubyTests<CR>
+map <Leader>ft :RunRubyFocusedTest<CR>
+map <Leader>ct :RunRubyFocusedContext<CR>
+
+" Toggle paste
+set pastetoggle=<leader>p
+
 "Some nice commands from github.com/r00k/dotfiles
 "''''''''''''''''''''''''''''''''''''''''''''''''
 " Don't wait so long for the next keypress (particularly in ambigious Leader
@@ -99,10 +109,10 @@ autocmd User Rails Rnavcommand jspec       spec/javascripts                   -g
 "Some commands from github.com/thoughtbot/dotfiles
 "'''''''''''''''''''''''''''''''''''''''''''''''''''
 "Move between windows with ctrl+direction instead of ctrl+w direction
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+"nnoremap <C-J> <C-W><C-J>
+"nnoremap <C-K> <C-W><C-K>
+"nnoremap <C-L> <C-W><C-L>
+"nnoremap <C-H> <C-W><C-H>
 
 "Open the focused split, when splitting the window, to the right and 
 "to the bottom instead of to left and top
@@ -112,3 +122,6 @@ set splitright
 " tab settings (the defaults is almost perfect)
 autocmd Filetype javascript setlocal ts=4 sw=4 sts=4 expandtab
 autocmd Filetype html setlocal ts=4 sw=4 sts=4 expandtab
+
+" Let gists be private
+let g:gist_post_private = 1
