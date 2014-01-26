@@ -43,6 +43,8 @@ set scrolloff=3
 set wrap
 " Let - be a valid keyword character
 set iskeyword+=-
+" Add a visual line after the 80 character breakpoint
+set colorcolumn=81
 
 " Vimux bindings
 " Prompt for a command to run
@@ -121,7 +123,27 @@ set splitright
 
 " tab settings (the defaults is almost perfect)
 autocmd Filetype javascript setlocal ts=4 sw=4 sts=4 expandtab
-autocmd Filetype html setlocal ts=4 sw=4 sts=4 expandtab
+autocmd Filetype html setlocal ts=2 sw=2 sts=2 expandtab
 
 " Let gists be private
 let g:gist_post_private = 1
+
+" Search for visually selected text (in visual mode)
+" Search for selected text, forwards or backwards.
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+
+" settings for ruby textobjects (vim-textobj-rubyblock)
+runtime macros/matchit.vim
+set nocompatible
+if has("autocmd")
+  filetype indent plugin on
+endif

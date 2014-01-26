@@ -29,7 +29,9 @@ alias deployc="bundle exec rake assets:precompile && git add . && git commit -m\
 # Rails, and bundler stuff
 alias be="bundle exec"
 alias migrate="zeus rake db:migrate db:rollback && zeus rake db:migrate db:test:prepare"
+alias migrate_no_test="zeus rake db:migrate db:rollback && zeus rake db:migrate"
 alias m="migrate"
+alias mnt="migrate_no_test"
 
 # Run specs using zeus if zeus is running
 rspec() {
