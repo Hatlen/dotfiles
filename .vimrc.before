@@ -3,7 +3,7 @@ set t_Co=256
 let g:ctrlp_working_path_mode = "rw"
 let g:solarized_termcolors=256
 
-set rtp+=~/dotfiles/.janus/vundle
+set rtp+=~/.janus/vundle
 call vundle#rc("$HOME/dotfiles/.janus/")
 
 " Let Vundle manage Vundle

@@ -1,29 +1,17 @@
+" settings for ruby textobjects (vim-textobj-rubyblock)
+set nocompatible " must be set before iskeyword since it resets iskeyword
+runtime macros/matchit.vim
+if has("autocmd")
+  filetype indent plugin on
+endif
 filetype plugin indent on
 "set relativenumber
 set background=dark
 color solarized
 
-" paste from clipboard 
+set relativenumber
+" paste from clipboard
 " set clipboard=unnamed
-
-" resize current buffer by +/- 5
-nnoremap <C-w><left> :vertical resize -5<cr>
-nnoremap <C-w><up> :resize +5<cr>
-nnoremap <C-w><down> :resize -5<cr>
-nnoremap <C-w><right> :vertical resize +5<cr>
-
-"Strip all trailing whitespace <del>before writing to the buffer</del>
-"on leader mapping
-fun! <SID>StripTrailingWhitespaces()
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    call cursor(l, c)
-endfun
-
-
-map <leader>stw :call <SID>StripTrailingWhitespaces()<CR>
-" autocmd FileType html,javascript,json,css,ruby,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
 " Reloads the file when it's changed
 set autoread
@@ -45,7 +33,31 @@ set wrap
 set iskeyword+=-
 " Add a visual line after the 80 character breakpoint
 set colorcolumn=81
+" Toggle paste
+set pastetoggle=<leader>p
+"Open the focused split, when splitting the window, to the right and
+"to the bottom instead of to left and top
+set splitbelow
+set splitright
 
+" resize current buffer by +/- 5
+nnoremap <C-w><left> :vertical resize -5<cr>
+nnoremap <C-w><up> :resize +5<cr>
+nnoremap <C-w><down> :resize -5<cr>
+nnoremap <C-w><right> :vertical resize +5<cr>
+
+"Strip all trailing whitespace <del>before writing to the buffer</del>
+"on leader mapping
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+
+
+map <leader>stw :call <SID>StripTrailingWhitespaces()<CR>
+" autocmd FileType html,javascript,json,css,ruby,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 " Vimux bindings
 " Prompt for a command to run
 map <Leader>rp :PromptVimTmuxCommand<CR>
@@ -53,7 +65,7 @@ map <Leader>rp :PromptVimTmuxCommand<CR>
 map <Leader>rl :RunLastVimTmuxCommand<CR>
 " Inspect runner pane
 "disabled since i want that binding for rails.vim
-"map <Leader>ri :InspectVimTmuxRunne 
+"map <Leader>ri :InspectVimTmuxRunne
 " Close all other tmux panes in current window
 map <Leader>rx :CloseVimTmuxPanes
 " Interrupt any command running in the runner pane
@@ -78,7 +90,7 @@ map <Leader>rc :Rcontroller<CR>
 map <Leader>rv :Rview<CR>
 map <Leader>rm :Rmodel<CR>
 map <Leader>rrr :Rrefresh<CR>
-map <Leader>ri :Rinitializer<CR> 
+map <Leader>ri :Rinitializer<CR>
 "config/routes.rb when no args is given
 
 " Run tests: current file, current test, current context
@@ -86,8 +98,9 @@ map <Leader>t :RunAllRubyTests<CR>
 map <Leader>ft :RunRubyFocusedTest<CR>
 map <Leader>ct :RunRubyFocusedContext<CR>
 
-" Toggle paste
-set pastetoggle=<leader>p
+" Ack search for the word under the cursor
+map <Leader>a yiw:Ack <C-r>0<CR>
+
 
 "Some nice commands from github.com/r00k/dotfiles
 "''''''''''''''''''''''''''''''''''''''''''''''''
@@ -107,19 +120,6 @@ autocmd User Rails Rnavcommand jview       app/assets/javascripts/views       -g
 autocmd User Rails Rnavcommand jcollection app/assets/javascripts/collections -glob=**/*  -suffix=.coffee
 autocmd User Rails Rnavcommand jrouter     app/assets/javascripts/routers     -glob=**/*  -suffix=.coffee
 autocmd User Rails Rnavcommand jspec       spec/javascripts                   -glob=**/*  -suffix=.coffee
-
-"Some commands from github.com/thoughtbot/dotfiles
-"'''''''''''''''''''''''''''''''''''''''''''''''''''
-"Move between windows with ctrl+direction instead of ctrl+w direction
-"nnoremap <C-J> <C-W><C-J>
-"nnoremap <C-K> <C-W><C-K>
-"nnoremap <C-L> <C-W><C-L>
-"nnoremap <C-H> <C-W><C-H>
-
-"Open the focused split, when splitting the window, to the right and 
-"to the bottom instead of to left and top
-set splitbelow
-set splitright
 
 " tab settings (the defaults is almost perfect)
 autocmd Filetype javascript setlocal ts=4 sw=4 sts=4 expandtab
@@ -141,9 +141,3 @@ vnoremap <silent> # :<C-U>
   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
 
-" settings for ruby textobjects (vim-textobj-rubyblock)
-runtime macros/matchit.vim
-set nocompatible
-if has("autocmd")
-  filetype indent plugin on
-endif

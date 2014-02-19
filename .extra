@@ -18,7 +18,7 @@ alias git-tmux='tmux new -s $(basename $(pwd))'
 export HISTIGNORE="ls:pwd:exit:date"
 
 # Disable the default ctrl-s binding, in favor of ctrl-s in vim
-bind -r '\C-s'
+# bind -r '\C-s'
 stty -ixon
 
 # Deploy: precompile the assets add all changes and push and deploy with cap
@@ -32,6 +32,10 @@ alias migrate="zeus rake db:migrate db:rollback && zeus rake db:migrate db:test:
 alias migrate_no_test="zeus rake db:migrate db:rollback && zeus rake db:migrate"
 alias m="migrate"
 alias mnt="migrate_no_test"
+alias z='zeus start'
+alias zs='zeus server'
+alias zc='zeus console'
+alias zr='zeus rake $@'
 
 # Run specs using zeus if zeus is running
 rspec() {
@@ -42,12 +46,15 @@ rspec() {
   fi
 }
 
+# capistrano
+alias deploy='be cap production deploy'
+
 # Python and django stuff
-alias pms="python manage.py shell_plus"
-alias pmr="python manage.py runserver_plus 0:8000"
-export WORKON_HOME="$HOME/virtualenvs"
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
-source $HOME/dotfiles/virtualenvwrapper.sh
+#alias pms="python manage.py shell_plus"
+#alias pmr="python manage.py runserver_plus 0:8000"
+#export WORKON_HOME="$HOME/virtualenvs"
+#export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+#source $HOME/dotfiles/virtualenvwrapper.sh
 
 # Other convenient aliases
 # Current project working on
