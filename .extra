@@ -21,33 +21,34 @@ export HISTIGNORE="ls:pwd:exit:date"
 # bind -r '\C-s'
 stty -ixon
 
-# Deploy: precompile the assets add all changes and push and deploy with cap
-alias deploy="git add . && git commit -m 'deploying' && git push && cap deploy"
-alias deployc="bundle exec rake assets:precompile && git add . && git commit -m\
- 'deploying' && git push && cap deploy"
+# Random bindings
+# Since I've disabled auto updates of google products this comes in handy
+alias update_google='/Library/Google/GoogleSoftwareUpdate/GoogleSoftwareUpdate.bundle/Contents/Resources/CheckForUpdatesNow.command'
 
 # Rails, and bundler stuff
 alias be="bundle exec"
-alias migrate="zeus rake db:migrate db:rollback && zeus rake db:migrate db:test:prepare"
-alias migrate_no_test="zeus rake db:migrate db:rollback && zeus rake db:migrate"
+alias migrate="rake db:migrate db:rollback && rake db:migrate"
+alias migrate_no_test="rake db:migrate db:rollback && rake db:migrate"
 alias m="migrate"
 alias mnt="migrate_no_test"
 alias z='zeus start'
 alias zs='zeus server'
 alias zc='zeus console'
 alias zr='zeus rake $@'
+alias rr='rake routes | grep $@'
 
 # Run specs using zeus if zeus is running
-rspec() {
-  if [ -S .zeus.sock ]; then
-    zeus rspec "$@"
-  else
-    command rspec "$@"
-  fi
-}
+#rspec() {
+  #if [ -S .zeus.sock ]; then
+    #zeus rspec "$@"
+  #else
+    #command rspec "$@"
+  #fi
+#}
 
 # capistrano
-alias deploy='be cap production deploy'
+alias deploy='SIDEKIQ=false be cap production deploy && say --voice="Bad News" deploy done'
+alias deployx='bundle && m && deploy'
 
 # Python and django stuff
 #alias pms="python manage.py shell_plus"
@@ -60,9 +61,13 @@ alias deploy='be cap production deploy'
 # Current project working on
 alias cw="cd $HOME/Code/aevy.com/"
 alias cv="cw" #easier to write
+alias cb="cd $HOME/Code/blog/"
 alias cc="cd $HOME/Code/"
 alias ee="vim $HOME/.extra"
 alias er="source $HOME/.extra"
+
+alias start-servers="elasticsearch && redis-server /usr/local/etc/redis.conf"
+alias rebuild-index='rake elasticsearch:recreate_index && rake reach_user:import_all && be sidekiq'
 
 # Debugging things
 # Setup a chrome, for android, remote debugging service (the adb application 

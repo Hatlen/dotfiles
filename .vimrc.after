@@ -1,13 +1,27 @@
 " settings for ruby textobjects (vim-textobj-rubyblock)
+set mouse=a
 set nocompatible " must be set before iskeyword since it resets iskeyword
 runtime macros/matchit.vim
 if has("autocmd")
   filetype indent plugin on
 endif
 filetype plugin indent on
-"set relativenumber
-set background=dark
-color solarized
+
+" color options
+set background=light
+color github
+"color solarized
+"set t_Co=256
+"let g:solarized_termcolors=256
+" hack to not have different background colors in tmux
+" but it's not perfect when i have the github theme in iterm2 and vim
+" the background gets a little darker than it probably should be
+"let g:solarized_termtrans = 1
+" the above row does what the row below does, but only in solarized
+hi Normal ctermbg=NONE
+
+let g:solarized_visibility='high'
+let g:solarized_contrast='high'
 
 set relativenumber
 " paste from clipboard
@@ -39,6 +53,9 @@ set pastetoggle=<leader>p
 "to the bottom instead of to left and top
 set splitbelow
 set splitright
+" Little hack to fix the split/scroll problem (scrolls down on split)
+tabnew
+bwipeout
 
 " resize current buffer by +/- 5
 nnoremap <C-w><left> :vertical resize -5<cr>
@@ -78,6 +95,8 @@ imap jj <Esc>
 "map ctrl-s to save
 noremap <silent> <C-S>          :update<CR>
 vnoremap <silent> <C-S>         <C-C>:update<CR>
+" leader+d to create the directory in which the file is created
+map <Leader>d :!mkdir %:p:h<CR>
 "Ctrl-O exits insert mode for just one command i think that i prefer to exit
 "insert mode on ctrl-s but i keep this comment here if i change my mind
 inoremap <silent> <C-S>         <esc>:update<CR>
@@ -94,13 +113,17 @@ map <Leader>ri :Rinitializer<CR>
 "config/routes.rb when no args is given
 
 " Run tests: current file, current test, current context
-map <Leader>t :RunAllRubyTests<CR>
+map <Leader>t :call VimuxRunCommand("rspec spec")<CR>
+" using vroom as a test runner mostly (it caches the name of the 
+" last run spec file, so that you can run it from any file), 
+" but i keep these shortcuts to be able to run context test if I'll feel the
+" need for that sometime.
+map <Leader>tt :RunAllRubyTests<CR>
 map <Leader>ft :RunRubyFocusedTest<CR>
 map <Leader>ct :RunRubyFocusedContext<CR>
 
 " Ack search for the word under the cursor
 map <Leader>a yiw:Ack <C-r>0<CR>
-
 
 "Some nice commands from github.com/r00k/dotfiles
 "''''''''''''''''''''''''''''''''''''''''''''''''
@@ -121,10 +144,6 @@ autocmd User Rails Rnavcommand jcollection app/assets/javascripts/collections -g
 autocmd User Rails Rnavcommand jrouter     app/assets/javascripts/routers     -glob=**/*  -suffix=.coffee
 autocmd User Rails Rnavcommand jspec       spec/javascripts                   -glob=**/*  -suffix=.coffee
 
-" tab settings (the defaults is almost perfect)
-autocmd Filetype javascript setlocal ts=4 sw=4 sts=4 expandtab
-autocmd Filetype html setlocal ts=2 sw=2 sts=2 expandtab
-
 " Let gists be private
 let g:gist_post_private = 1
 
@@ -141,3 +160,9 @@ vnoremap <silent> # :<C-U>
   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
 
+" tab settings (the defaults is almost perfect)
+autocmd Filetype javascript setlocal ts=4 sw=4 sts=4 expandtab
+autocmd Filetype html setlocal ts=2 sw=2 sts=2 expandtab
+
+" Some file name extensions has to have some special treatment
+au BufRead,BufNewFile *.hbs\.erb set filetype=handlebars.ember
