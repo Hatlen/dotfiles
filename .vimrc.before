@@ -1,10 +1,11 @@
 let mapleader = ','
 let g:ctrlp_working_path_mode = "rw"
 let g:vroom_use_vimux = 1
-let g:vroom_use_bundle_exec = 0
+let g:vroom_use_binstubs = 1
 let g:airline_theme = 'solarized'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
+let g:gist_post_private = 1
 
 set nocompatible
 filetype off
@@ -33,6 +34,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'kana/vim-textobj-user'
 Plugin 'nelstrom/vim-textobj-rubyblock'
 Plugin 'tpope/vim-bundler'
+Plugin 'tpope/vim-unimpaired'
 " funcoo is used by dash
 "Plugin 'rizzatti/funcoo.vim'
 "Plugin 'rizzatti/dash.vim'
@@ -42,6 +44,7 @@ Plugin 'bling/vim-airline'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'dsawardekar/ember.vim'
+Plugin 'leshill/vim-json'
 
 call vundle#end()
 filetype plugin indent on

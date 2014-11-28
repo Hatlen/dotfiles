@@ -8,16 +8,14 @@ endif
 filetype plugin indent on
 
 " color options
-set background=light
-color github
-"color solarized
-"set t_Co=256
-"let g:solarized_termcolors=256
-" hack to not have different background colors in tmux
-" but it's not perfect when i have the github theme in iterm2 and vim
-" the background gets a little darker than it probably should be
-"let g:solarized_termtrans = 1
-" the above row does what the row below does, but only in solarized
+if $VIM_DARK == '1'
+  set background=dark
+  color solarized
+else
+  set background=light
+  color github
+endif
+
 hi Normal ctermbg=NONE
 
 let g:solarized_visibility='high'
@@ -25,7 +23,7 @@ let g:solarized_contrast='high'
 
 set relativenumber
 " paste from clipboard
-" set clipboard=unnamed
+set clipboard=unnamed
 
 " Reloads the file when it's changed
 set autoread
@@ -71,36 +69,25 @@ fun! <SID>StripTrailingWhitespaces()
     %s/\s\+$//e
     call cursor(l, c)
 endfun
-
-
 map <leader>stw :call <SID>StripTrailingWhitespaces()<CR>
-" autocmd FileType html,javascript,json,css,ruby,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
-" Vimux bindings
-" Prompt for a command to run
-map <Leader>rp :PromptVimTmuxCommand<CR>
-" Run last command executed by RunVimTmuxCommand
-map <Leader>rl :RunLastVimTmuxCommand<CR>
-" Inspect runner pane
-"disabled since i want that binding for rails.vim
-"map <Leader>ri :InspectVimTmuxRunne
-" Close all other tmux panes in current window
-map <Leader>rx :CloseVimTmuxPanes
-" Interrupt any command running in the runner pane
-map <Leader>rs :InterruptVimTmuxRunner
+
 
 "" More mappings
 "map double j to escape in insert mode, to save finger travel distance.
 imap jj <Esc>
 
+nnoremap <space> za
+
+" map ctrl-s to enter in command line mode
+cnoremap <C-S> <cr>
 "map ctrl-s to save
 noremap <silent> <C-S>          :update<CR>
 vnoremap <silent> <C-S>         <C-C>:update<CR>
+inoremap <silent> <C-S>         <esc>:update<CR>
 " leader+d to create the directory in which the file is created
 map <Leader>d :!mkdir %:p:h<CR>
 "Ctrl-O exits insert mode for just one command i think that i prefer to exit
 "insert mode on ctrl-s but i keep this comment here if i change my mind
-inoremap <silent> <C-S>         <esc>:update<CR>
-"inoremap <silent> <C-O>         <esc>:update<CR>
 
 map <Leader>rr :CtrlPClearAllCaches<CR>
 " map <Leader>nr :NERDTree<CR><C-W><C-P>
@@ -112,15 +99,34 @@ map <Leader>rrr :Rrefresh<CR>
 map <Leader>ri :Rinitializer<CR>
 "config/routes.rb when no args is given
 
+" Vimux bindings
+" Prompt for a command to run
+map <Leader>rp :VimuxPromptCommand<CR>
+" Run last command executed by RunVimTmuxCommand
+map <Leader>rl :VimuxRunLastCommand<CR>
+" Inspect runner pane
+"disabled since i want that binding for rails.vim
+"map <Leader>ri :InspectVimTmuxRunne
+" Close all other tmux panes in current window
+map <Leader>rx :VimuxCloseRunner
+" Interrupt any command running in the runner pane
+map <Leader>rs :VimuxInterruptRunner
+
 " Run tests: current file, current test, current context
-map <Leader>t :call VimuxRunCommand("rspec spec")<CR>
-" using vroom as a test runner mostly (it caches the name of the 
-" last run spec file, so that you can run it from any file), 
+" map <Leader>t :call VimuxRunCommand("bin/rspec spec")<CR>
+" using vroom as a test runner mostly (it caches the name of the
+" last run spec file, so that you can run it from any file),
 " but i keep these shortcuts to be able to run context test if I'll feel the
 " need for that sometime.
-map <Leader>tt :RunAllRubyTests<CR>
+" map <Leader>tt :RunAllRubyTests<CR>
 map <Leader>ft :RunRubyFocusedTest<CR>
 map <Leader>ct :RunRubyFocusedContext<CR>
+
+" send "echo <test command>" to a named pipe (test-command) that runs that
+" command so that one can run the tests in another window on the other screen
+" (gary bernhardts idea destroy all software, running tests asynchronously)
+map <leader>t :w\|:silent exec "!echo 'clear && ./bin/rspec --format documentation %' > test-commands"\|redraw!<CR>
+
 
 " Ack search for the word under the cursor
 map <Leader>a yiw:Ack <C-r>0<CR>
@@ -131,21 +137,7 @@ map <Leader>a yiw:Ack <C-r>0<CR>
 " situations.
 set timeoutlen=650 "default 1000
 "Reload .vimrc and do bundle install (changed to work with my janus config)
-nmap <Leader>bi :source ~/.vimrc.before<cr>:BundleInstall<cr>
-"Do git- add, commit and push in one command, if you just want a fast way
-"to save your changes and sync it to the repo.
-map <Leader>gw :!git add . && git commit -m "FAST COMMIT" && git push<cr><cr>
-
-" Set up some useful Rails.vim bindings for working with Backbone.js
-autocmd User Rails Rnavcommand jtemplate    app/assets/templates               -glob=**/*  -suffix=.jst.ejs
-autocmd User Rails Rnavcommand jmodel      app/assets/javascripts/models      -glob=**/*  -suffix=.coffee
-autocmd User Rails Rnavcommand jview       app/assets/javascripts/views       -glob=**/*  -suffix=.coffee
-autocmd User Rails Rnavcommand jcollection app/assets/javascripts/collections -glob=**/*  -suffix=.coffee
-autocmd User Rails Rnavcommand jrouter     app/assets/javascripts/routers     -glob=**/*  -suffix=.coffee
-autocmd User Rails Rnavcommand jspec       spec/javascripts                   -glob=**/*  -suffix=.coffee
-
-" Let gists be private
-let g:gist_post_private = 1
+nmap <Leader>bi :source ~/.vimrc.before<cr>:PluginInstall<cr>
 
 " Search for visually selected text (in visual mode)
 " Search for selected text, forwards or backwards.
