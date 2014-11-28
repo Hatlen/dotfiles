@@ -1,6 +1,7 @@
 [alias]
-	c = commit -am
-	up = pull
+  c = checkout -
+	up = pull --rebase
+	ups = !git stash && git pull --rebase && git stash pop
 	p = push
 	s = status -s
 	df = diff --color --color-words --abbrev

@@ -31,20 +31,23 @@ alias migrate="rake db:migrate db:rollback && rake db:migrate"
 alias migrate_no_test="rake db:migrate db:rollback && rake db:migrate"
 alias m="migrate"
 alias mnt="migrate_no_test"
-alias z='zeus start'
-alias zs='zeus server'
-alias zc='zeus console'
-alias zr='zeus rake $@'
+alias s='rails s'
 alias rr='rake routes | grep $@'
 
-# Run specs using zeus if zeus is running
-#rspec() {
-  #if [ -S .zeus.sock ]; then
-    #zeus rspec "$@"
-  #else
-    #command rspec "$@"
-  #fi
-#}
+# Testing stuff
+make_test_pipe () {
+  if [ ! -p test-commands ]; then
+    mkfifo test-commands
+  fi
+
+  while true; do
+    sh -c "$(cat test-commands)"
+  done
+}
+
+# Foreman stuff
+# don't start web (rails s) with foreman to be able to call binding.pry
+alias fnw='foreman start -c all=1,web=0'
 
 # capistrano
 alias deploy='SIDEKIQ=false be cap production deploy && say --voice="Bad News" deploy done'
@@ -65,9 +68,6 @@ alias cb="cd $HOME/Code/blog/"
 alias cc="cd $HOME/Code/"
 alias ee="vim $HOME/.extra"
 alias er="source $HOME/.extra"
-
-alias start-servers="elasticsearch && redis-server /usr/local/etc/redis.conf"
-alias rebuild-index='rake elasticsearch:recreate_index && rake reach_user:import_all && be sidekiq'
 
 # Debugging things
 # Setup a chrome, for android, remote debugging service (the adb application 
