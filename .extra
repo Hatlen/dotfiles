@@ -45,6 +45,18 @@ make_test_pipe () {
   done
 }
 
+# Run some command a thousand times and output stderr things
+multi_run_command () {
+  i=0
+  while (( ++i <= 1000 )); do
+    echo -n "$i, "
+    if ! output=`$@`; then
+      echo "$(date +"%T")"
+      echo $"$output"
+    fi
+  done
+}
+
 # Foreman stuff
 # don't start web (rails s) with foreman to be able to call binding.pry
 alias fnw='foreman start -c all=1,web=0'
@@ -99,3 +111,14 @@ export PATH=/usr/local/share/npm/bin/webdriver:$PATH
 export PATH=/Developer/NVIDIA/CUDA-5.0/bin:$PATH
 # making cuda
 # export DYLD_LIBRARY_PATH=/Developer/NVIDIA/CUDA-5.0/lib:$DYLD_LIBRARY_PATH
+
+# Docker
+alias bu="boot2docker up"
+alias bd="boot2docker down"
+bs () {
+  $(boot2docker shellinit)
+}
+
+alias dr="docker run --rm -it"
+alias dra="docker run --rm -it aevy/aevy"
+alias dp="docker ps"
