@@ -45,6 +45,8 @@ Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'dsawardekar/ember.vim'
 Plugin 'leshill/vim-json'
+Plugin 'tpope/vim-fugitive'
+Plugin 'AndrewRadev/linediff.vim'
 
 call vundle#end()
 filetype plugin indent on
