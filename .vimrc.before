@@ -1,11 +1,24 @@
 let mapleader = ','
 let g:ctrlp_working_path_mode = "rw"
+"let g:vroom_custom_command = "silent :w | shell(\"echo 'clear && bin/rspec %f%l' > test_pipe\")"
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/Users/Hank/Code/aevy.com/app/assets/javascripts/search/templates/person'
+let g:netrw_dirhist_2='/Users/Hank/Code/aevy.com/aevy-people'
+let g:netrw_dirhist_3='/Users/Hank/Code/aevy.com/spec/factories'
 let g:vroom_use_vimux = 1
-let g:vroom_use_binstubs = 1
+let g:vroom_use_binstubs = 0
 let g:airline_theme = 'solarized'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:gist_post_private = 1
+"Vim-airline
+let g:airline#extensions#default#section_truncate_width = {
+    \ 'b': 120,
+    \ 'x': 120,
+    \ 'y': 120,
+    \ 'z': 120,
+    \ }
 
 set nocompatible
 filetype off
@@ -22,9 +35,9 @@ Plugin 'benmills/vimux'
 Plugin 'mattn/emmet-vim'
 Plugin 'vim-scripts/DirDo.vim'
 Plugin 'ecomba/vim-ruby-refactoring'
-" Plugin 'vim-scripts/django.vim'
-Plugin 'godlygeek/tabular'
-Plugin 'pgr0ss/vimux-ruby-test'
+"Plugin 'vim-scripts/django.vim'
+"Plugin 'godlygeek/tabular'
+"Plugin 'pgr0ss/vimux-ruby-test'
 Plugin 'skalnik/vim-vroom'
 "Plugin 'tpope/vim-dispatch'
 Plugin 'danro/rename.vim'
@@ -33,20 +46,34 @@ Plugin 'christoomey/vim-tmux-navigator'
 "Plugin 'henrik/vim-ruby-runner'
 Plugin 'kana/vim-textobj-user'
 Plugin 'nelstrom/vim-textobj-rubyblock'
-Plugin 'tpope/vim-bundler'
-Plugin 'tpope/vim-unimpaired'
+"Plugin 'tpope/vim-bundler'
+"Plugin 'tpope/vim-unimpaired'
 " funcoo is used by dash
 "Plugin 'rizzatti/funcoo.vim'
 "Plugin 'rizzatti/dash.vim'
 
 Plugin 'skwp/greplace.vim'
 Plugin 'bling/vim-airline'
-Plugin 'mustache/vim-mustache-handlebars'
+"Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'dsawardekar/ember.vim'
 Plugin 'leshill/vim-json'
 Plugin 'tpope/vim-fugitive'
 Plugin 'AndrewRadev/linediff.vim'
+
+" Clojure
+Plugin 'tpope/vim-classpath'
+Plugin 'tpope/vim-fireplace'
+
+" Evaluate ruby code
+Plugin 'hwartig/vim-seeing-is-believing'
+
+" React
+Plugin 'mxw/vim-jsx'
+Plugin 'mtscout6/vim-cjsx' " react + coffeescript
+Plugin 'kchmck/vim-coffee-script' " dependency of vim-cjsx
+
+Plugin 'editorconfig/editorconfig-vim'
 
 call vundle#end()
 filetype plugin indent on

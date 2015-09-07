@@ -1,12 +1,15 @@
---ignore-dir=rails
 --type-set=ruby=.rb,.rhtml,.rjs,.rxml,.erb,.rake,.spec,.haml
 --type-add=css=.less
 --type-add=css=.scss
 --type-add=js=.coffee
+--type-add=js=.coffee.erb
 --type-add=html=.erb
 --ignore-dir=log
 --ignore-dir=tmp
+--ignore-dir=node_mudules
+--ignore-dir=bower_components
 --ignore-dir=vendor
 --ignore-dir=public/generated
+--ignore-dir=app/views/pages/sketches
 --sort-files
 # -a

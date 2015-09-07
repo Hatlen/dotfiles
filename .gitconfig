@@ -1,5 +1,7 @@
 [alias]
   c = checkout -
+  co = checkout
+  ci = commit
 	up = pull --rebase
 	ups = !git stash && git pull --rebase && git stash pop
 	p = push
@@ -28,6 +30,7 @@
 	untracked = cyan
 [merge]
 	log = true
+  ff = false
 [url "git@github.com:"]
 	insteadOf = "gh:"
 	pushInsteadOf = "github:"
@@ -40,15 +43,25 @@
 	pushInsteadOf = "git://gist.github.com/"
 [url "git://gist.github.com/"]
 	insteadOf = "gist:"
-
-# Any GitHub repo with my username should be checked out r/w by default
-# http://rentzsch.tumblr.com/post/564806957/public-but-hackable-git-submodules
-[url "git@github.com:paulirish/"]
-  insteadOf = "git://github.com/paulirish/"
 [user]
 	name = Trond Fröding Hatlen
 	email = trondfroding@gmail.com
 [push]
-	default = simple
+	default = current
 [github]
 	user = hatlen
+[rerere]
+	enabled = true
+[branch]
+	autosetuprebase = always
+[git-pair]
+	pattern = dev+%name+%name@mynewsdesk.com
+	authors = Trond Fröding Hatlen <trond.froding@mynewsdesk.com>
+	authors = Joakim Olander <joakim.westerlund@mynewsdesk.com>
+	authors = Lukas Maciulis <lukas.maciulis@mynewsdesk.com>
+	authors = Elias Hedlund <elias.hedlund@mynewsdesk.com>
+	authors = Markus Nordin <markus.nordin@mynewsdesk.com>
+	authors = nicolas medda <nicolas.medda@mynwsdesk.com>
+	authors = Team Capture <captureteam@mynewsdesk.com>
+[pull]
+	rebase = true
